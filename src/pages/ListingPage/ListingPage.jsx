@@ -5,7 +5,12 @@ import {
   faThumbsUp,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
-import { faBars, faHistory, faHome } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faHistory,
+  faHome,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import "./listing-page.css";
@@ -31,7 +36,11 @@ export default function ListingPage() {
           />{" "}
           SlipStream
         </div>
-        <div className="nav-searchbar">Searchbar</div>
+        <div className="nav-searchbar">
+          <FontAwesomeIcon icon={faSearch} className="nav-icon" />
+          <input className="search-input" type="text" placeholder="Search" />
+        </div>
+
         <div className="nav-action">
           <div className="nav-theme">
             <FontAwesomeIcon icon={faMoon} className="nav-icon" />
