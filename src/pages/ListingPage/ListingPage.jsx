@@ -10,7 +10,6 @@ import {
   faEllipsisVertical,
   faHistory,
   faHome,
-  faL,
   faPlay,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
