@@ -134,6 +134,7 @@
 }
 
 .video-listing {
+  grid-area: video;
   /* background-color: aqua; */
 }
 
@@ -150,6 +151,7 @@
 .thumbnail {
   width: 300px;
   height: 200px;
+  cursor: pointer;
 }
 
 .video-content {
