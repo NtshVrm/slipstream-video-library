@@ -9,6 +9,7 @@ import {
   faBars,
   faHistory,
   faHome,
+  faL,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +23,15 @@ export default function ListingPage() {
     { name: "Watch Later", icon: faClock },
     { name: "Liked Videos", icon: faThumbsUp },
     { name: "Watch History", icon: faHistory },
+  ];
+
+  const filters = [
+    { id: 0, name: "All", active: true },
+    { id: 1, name: "Race Highlights", active: false },
+    { id: 2, name: "Qualifying Highlights", active: false },
+    { id: 3, name: "Tech Talk", active: false },
+    { id: 4, name: "Podcasts", active: false },
+    { id: 5, name: "Others", active: false },
   ];
 
   const [sidebarDisplay, setSidebarDisplay] = useState(true);
@@ -69,10 +79,16 @@ export default function ListingPage() {
         </div>
 
         <div className="listing-container">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, odio
-          provident. Magnam accusantium voluptatem eos. Repudiandae adipisci
-          necessitatibus debitis perspiciatis fugit sed repellendus, porro
-          deleniti nostrum voluptatem quibusdam eius quia.
+          <div className="filter-container">
+            {filters.map((item) => {
+              return (
+                <div className={`filter-item ${item.active ? "active" : ""}`}>
+                  {item.name}
+                </div>
+              );
+            })}
+          </div>
+          <div className="video-listing">LOL</div>
         </div>
       </main>
     </div>

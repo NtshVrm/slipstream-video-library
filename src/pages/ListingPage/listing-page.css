@@ -100,7 +100,41 @@
 
 .listing-container {
   grid-area: listing;
-  background-color: chartreuse;
+  display: grid;
+  grid-template-rows: 0.5fr 4fr;
+  grid-template-areas:
+    "filter"
+    "video";
+}
+
+.filter-container {
+  grid-area: filter;
+  display: flex;
+  flex-flow: wrap;
+  gap: 1rem;
+  /* background-color: aqua; */
+  padding: 1rem;
+}
+
+.filter-item {
+  padding: 0.5rem;
+  border-radius: 2rem;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.filter-item:hover {
+  background-color: var(--primary-hover);
+  cursor: pointer;
+}
+
+.active {
+  background-color: var(--primary-hover);
+}
+
+.video-listing {
+  background-color: aqua;
 }
 
 @media screen and (max-width: 768px) {
