@@ -16,6 +16,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import "./listing-page.css";
+import { videos } from "../../backend/db/videos";
+import { VideoCard } from "../../components";
 
 export default function ListingPage() {
   const sidebar = [
@@ -36,7 +38,7 @@ export default function ListingPage() {
   ];
 
   const [sidebarDisplay, setSidebarDisplay] = useState(true);
-  const [videoMenuDisplay, setVideoMenuDisplay] = useState(false);
+
   return (
     <div className="page-container">
       <nav className="navbar">
@@ -91,55 +93,9 @@ export default function ListingPage() {
             })}
           </div>
           <div className="video-listing">
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <img
-                  src="https://picsum.photos/600/200"
-                  className="thumbnail"
-                  alt="thumbnail"
-                />
-              </div>
-              <div className="video-content">
-                <div className="content-header">
-                  <img
-                    src="https://picsum.photos/40/40"
-                    className="creator-profile"
-                    alt="creator img"
-                  />
-                  <div className="video-title">
-                    2021 Abu Dhabi Grand Prix Race Highlights
-                  </div>
-                  <div className="video-action">
-                    <FontAwesomeIcon
-                      icon={faEllipsisVertical}
-                      className="action-icon"
-                      onClick={() => setVideoMenuDisplay((prev) => !prev)}
-                    />
-                    {videoMenuDisplay ? (
-                      <div className="video-menu">
-                        <div className="video-menu-item">
-                          <FontAwesomeIcon icon={faClock} />
-                          Watch Later
-                        </div>
-                        <div className="video-menu-item">
-                          <FontAwesomeIcon icon={faPlayCircle} />
-                          Add to Playlist
-                        </div>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-                <div className="content-footer">
-                  <div className="creator-title">Formula 1</div>
-                  <div>
-                    <FontAwesomeIcon icon={faPlay} />
-                    11.1M views
-                  </div>
-                </div>
-              </div>
-            </div>
+            {videos.map((item) => {
+              return <VideoCard video={item} />;
+            })}
           </div>
         </div>
       </main>
