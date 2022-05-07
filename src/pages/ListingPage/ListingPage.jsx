@@ -1,21 +1,15 @@
 import {
   faClock,
-  faMoon,
   faPlayCircle,
   faThumbsUp,
-  faUser,
 } from "@fortawesome/free-regular-svg-icons";
-import {
-  faBars,
-  faHistory,
-  faHome,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHistory, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 import "./listing-page.css";
 import { videos } from "../../backend/db/videos";
-import { VideoCard } from "../../components";
+import { NavBar, VideoCard } from "../../components";
+import { useContext } from "react";
+import { ComponentContext } from "../../context/component-context";
 
 export default function ListingPage() {
   const sidebar = [
@@ -35,35 +29,11 @@ export default function ListingPage() {
     { id: 5, name: "Others", active: false },
   ];
 
-  const [sidebarDisplay, setSidebarDisplay] = useState(true);
+  const { sidebarDisplay } = useContext(ComponentContext);
 
   return (
     <div className="page-container">
-      <nav className="navbar">
-        <div className="nav-title">
-          <FontAwesomeIcon
-            icon={faBars}
-            className="navbar-menu"
-            onClick={() => setSidebarDisplay((prev) => !prev)}
-          />{" "}
-          SlipStream
-        </div>
-        <div className="nav-searchbar">
-          <FontAwesomeIcon icon={faSearch} className="nav-icon" />
-          <input className="search-input" type="text" placeholder="Search" />
-        </div>
-
-        <div className="nav-action">
-          <div className="nav-theme">
-            <FontAwesomeIcon icon={faMoon} className="nav-icon" />
-            <span className="nav-action-title">Theme</span>
-          </div>
-          <div className="nav-user">
-            <FontAwesomeIcon icon={faUser} className="nav-icon" />{" "}
-            <span className="nav-action-title">User</span>
-          </div>
-        </div>
-      </nav>
+      <NavBar />
       <main className="main-container">
         <div
           className={`sidebar-container ${

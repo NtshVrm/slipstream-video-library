@@ -4,7 +4,6 @@
   grid-template-areas:
     "navbar"
     "main";
-  /* grid-template-rows: 0.5fr 5fr; */
 }
 
 .navbar {
@@ -210,6 +209,7 @@
   color: var(--primary);
   font-weight: bold;
   border: 1px solid darkgray;
+  z-index: 44;
 }
 .video-menu-item {
   padding: 0.25rem;
