@@ -1,6 +1,5 @@
 .page-container {
   display: grid;
-  min-height: 100vh;
   grid-template-areas:
     "navbar"
     "main";
@@ -80,6 +79,7 @@
   flex-flow: column;
   padding: 1rem;
   gap: 1rem;
+  /* height: max-content; */
 }
 
 .sidebar-item {

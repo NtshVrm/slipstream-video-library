@@ -1,9 +1,3 @@
-import {
-  faClock,
-  faPlayCircle,
-  faThumbsUp,
-} from "@fortawesome/free-regular-svg-icons";
-import { faHistory, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./listing-page.css";
 import { videos } from "../../backend/db/videos";
@@ -12,24 +6,7 @@ import { useContext } from "react";
 import { ComponentContext } from "../../context/component-context";
 
 export default function ListingPage() {
-  const sidebar = [
-    { name: "Home", icon: faHome },
-    { name: "Playlists", icon: faPlayCircle },
-    { name: "Watch Later", icon: faClock },
-    { name: "Liked Videos", icon: faThumbsUp },
-    { name: "Watch History", icon: faHistory },
-  ];
-
-  const filters = [
-    { id: 0, name: "All", active: true },
-    { id: 1, name: "Race Highlights", active: false },
-    { id: 2, name: "Qualifying Highlights", active: false },
-    { id: 3, name: "Tech Talk", active: false },
-    { id: 4, name: "Podcasts", active: false },
-    { id: 5, name: "Others", active: false },
-  ];
-
-  const { sidebarDisplay } = useContext(ComponentContext);
+  const { sidebarDisplay, sidebar, filters } = useContext(ComponentContext);
 
   return (
     <div className="page-container">

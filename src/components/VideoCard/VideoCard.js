@@ -2,13 +2,20 @@ import { faClock, faPlayCircle } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisVertical, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function VideoCard({ video }) {
   const [videoMenuDisplay, setVideoMenuDisplay] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="video-card">
       <div className="video-thumbnail">
-        <img src={video.thumbnail} className="thumbnail" alt="thumbnail" />
+        <img
+          src={video.thumbnail}
+          className="thumbnail"
+          alt="thumbnail"
+          onClick={() => navigate("/SingleVideo")}
+        />
         <div className="video-duration">{video.duration}</div>
       </div>
       <div className="video-content">
