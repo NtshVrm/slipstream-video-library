@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router";
-import { Home, ListingPage, SingleVideo } from "./pages";
+import { ListingPage, SingleVideo } from "./pages";
 
 function App() {
   return (
