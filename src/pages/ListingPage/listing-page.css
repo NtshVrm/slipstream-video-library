@@ -79,7 +79,6 @@
   flex-flow: column;
   padding: 1rem;
   gap: 1rem;
-  /* height: max-content; */
 }
 
 .sidebar-item {
