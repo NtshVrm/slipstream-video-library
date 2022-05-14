@@ -2,10 +2,12 @@ import { faMoon, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
+import { useNavigate } from "react-router";
 import { ComponentContext } from "../../context/component-context";
 
 export default function NavBar() {
   const { setSidebarDisplay } = useContext(ComponentContext);
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar">
@@ -29,7 +31,12 @@ export default function NavBar() {
         </div>
         <div className="nav-user">
           <FontAwesomeIcon icon={faUser} className="nav-icon" />{" "}
-          <span className="nav-action-title">User</span>
+          <span
+            className="nav-action-title"
+            onClick={() => navigate("/SignUp")}
+          >
+            User
+          </span>
         </div>
       </div>
     </nav>

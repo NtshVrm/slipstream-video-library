@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router";
-import { ListingPage, SingleVideo } from "./pages";
+import { ListingPage, Signin, Signup, SingleVideo } from "./pages";
 
 function App() {
   return (
@@ -10,6 +10,8 @@ function App() {
         <Route path="/" element={<ListingPage />} />
         <Route path="/Listing" element={<ListingPage />} />
         <Route path="/SingleVideo" element={<SingleVideo />} />
+        <Route path="/SignUp" element={<Signup />} />
+        <Route path="/SignIn" element={<Signin />} />
       </Routes>
     </div>
   );
