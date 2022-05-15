@@ -8,9 +8,30 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { NavBar } from "../../components";
 import { ComponentContext } from "../../context/component-context";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function Signin() {
   const { sidebarDisplay, sidebar } = useContext(ComponentContext);
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const signInHandler = async () => {
+    try {
+      const response = await axios.post(`/api/auth/login`, loginInfo);
+      if (response.status === 200) {
+        navigate("/listing");
+        alert("Login Successfull");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="page-container">
       <NavBar />
@@ -60,6 +81,9 @@ export default function Signin() {
                     type="text"
                     className="text-input"
                     placeholder="mock@gmail.com"
+                    onChange={(e) => {
+                      setLoginInfo({ ...loginInfo, email: e.target.value });
+                    }}
                   />
                   <label className="input-label">Email</label>
                 </div>
@@ -68,6 +92,9 @@ export default function Signin() {
                     type="password"
                     className="text-input"
                     placeholder="mockPassword"
+                    onChange={(e) => {
+                      setLoginInfo({ ...loginInfo, password: e.target.value });
+                    }}
                   />
                   <label className="input-label">Password</label>
                 </div>
@@ -84,7 +111,9 @@ export default function Signin() {
               </div>
 
               <button className="test-button">Use Test Credentials</button>
-              <button className="sign-button">Sign In</button>
+              <button className="sign-button" onClick={() => signInHandler()}>
+                Sign In
+              </button>
 
               <div className="no-account">
                 Don't have an account?

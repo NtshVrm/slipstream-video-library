@@ -4,9 +4,34 @@ import { NavBar } from "../../components";
 import { ComponentContext } from "../../context/component-context";
 import "./auth.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function Signup() {
   const { sidebarDisplay, sidebar } = useContext(ComponentContext);
+  const [info, setInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const signUpHandler = async () => {
+    try {
+      const response = await axios.post(`/api/auth/signup`, info);
+      localStorage.setItem("token", response.data.encodedToken);
+
+      if (response.status === 201) {
+        navigate("/signin");
+        alert("Created User!, Please login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="page-container">
       <NavBar />
@@ -33,19 +58,44 @@ export default function Signup() {
 
               <div className="social-input">
                 <div className="input">
-                  <input type="text" className="text-input" />
+                  <input
+                    type="text"
+                    className="text-input"
+                    onChange={(e) => {
+                      setInfo({ ...info, firstName: e.target.value });
+                    }}
+                  />
                   <label className="input-label">First Name</label>
                 </div>
+
                 <div className="input">
-                  <input type="text" className="text-input" />
+                  <input
+                    type="text"
+                    className="text-input"
+                    onChange={(e) => {
+                      setInfo({ ...info, lastName: e.target.value });
+                    }}
+                  />
                   <label className="input-label">Last Name</label>
                 </div>
                 <div className="input">
-                  <input type="text" className="text-input" />
+                  <input
+                    type="text"
+                    className="text-input"
+                    onChange={(e) => {
+                      setInfo({ ...info, email: e.target.value });
+                    }}
+                  />
                   <label className="input-label">Email</label>
                 </div>
                 <div className="input">
-                  <input type="password" className="text-input" />
+                  <input
+                    type="password"
+                    className="text-input"
+                    onChange={(e) => {
+                      setInfo({ ...info, password: e.target.value });
+                    }}
+                  />
                   <label className="input-label">Password</label>
                 </div>
                 <div className="input">
@@ -54,7 +104,14 @@ export default function Signup() {
                 </div>
               </div>
 
-              <button className="sign-button">Sign Up</button>
+              <button
+                className="sign-button"
+                onClick={() => {
+                  signUpHandler();
+                }}
+              >
+                Sign Up
+              </button>
 
               <div className="no-account">
                 Already have an account?
