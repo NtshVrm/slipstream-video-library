@@ -105,9 +105,6 @@ export default function Signin() {
                     type="text"
                     className="text-input"
                     placeholder="mock@gmail.com"
-                    // onChange={(e) => {
-                    //   setLoginInfo({ ...loginInfo, email: e.target.value });
-                    // }}
                     ref={userEmail}
                   />
                   <label className="input-label">Email</label>
@@ -117,9 +114,6 @@ export default function Signin() {
                     type="password"
                     className="text-input"
                     placeholder="mockPassword"
-                    // onChange={(e) => {
-                    //   setLoginInfo({ ...loginInfo, password: e.target.value });
-                    // }}
                     ref={userPassword}
                   />
                   <label className="input-label">Password</label>
