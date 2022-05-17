@@ -6,14 +6,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { NavBar } from "../../components";
 import { ComponentContext } from "../../context/component-context";
-import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { AuthContext } from "../../context/auth-context";
 
 export default function Signin() {
   const { sidebarDisplay, sidebar } = useContext(ComponentContext);
@@ -24,25 +21,7 @@ export default function Signin() {
   const userEmail = useRef("");
   const userPassword = useRef("");
   const navigate = useNavigate();
-
-  const signInHandler = async (loginDetail) => {
-    try {
-      const response = await axios.post(`/api/auth/login`, loginDetail);
-      if (response.status === 200) {
-        localStorage.setItem(
-          "login",
-          JSON.stringify({ token: response.data.encodedToken })
-        );
-        navigate("/Listing");
-      }
-      if (response.status === 201) {
-        alert("Wrong Password");
-      }
-    } catch (error) {
-      console.log(error);
-      alert("No User found with the entered email");
-    }
-  };
+  const { signInHandler } = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {

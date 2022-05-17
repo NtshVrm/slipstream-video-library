@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavBar } from "../../components";
 import { ComponentContext } from "../../context/component-context";
 import "./auth.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../../context/auth-context";
 
 export default function Signup() {
   const { sidebarDisplay, sidebar } = useContext(ComponentContext);
@@ -15,21 +14,36 @@ export default function Signup() {
     lastName: "",
     email: "",
     password: "",
+    confirm: "",
   });
   const navigate = useNavigate();
+  const { signUpHandler } = useContext(AuthContext);
 
-  const signUpHandler = async () => {
-    try {
-      const response = await axios.post(`/api/auth/signup`, info);
-      localStorage.setItem("token", response.data.encodedToken);
-
-      if (response.status === 201 || 200) {
-        navigate("/signin");
-        alert("Created User!, Please login");
+  const signUpFunction = () => {
+    if (
+      info.email &&
+      info.password &&
+      info.firstName &&
+      info.lastName &&
+      info.confirm !== ""
+    ) {
+      if (info.password === info.confirm) {
+        (async () => {
+          signUpHandler(info);
+        })();
+      } else {
+        alert("Passwords dont match!");
       }
-    } catch (error) {
-      console.log(error);
-      alert("User already exists, please login!");
+    } else {
+      alert("Please fill in all the fields");
+      localStorage.removeItem("token");
+      navigate("/Signup");
+    }
+
+    if (localStorage.getItem("token")) {
+      setTimeout(() => {
+        navigate("/Signin");
+      }, 500);
     }
   };
 
@@ -100,7 +114,13 @@ export default function Signup() {
                   <label className="input-label">Password</label>
                 </div>
                 <div className="input">
-                  <input type="password" className="text-input" />
+                  <input
+                    type="password"
+                    className="text-input"
+                    onChange={(e) => {
+                      setInfo({ ...info, confirm: e.target.value });
+                    }}
+                  />
                   <label className="input-label">Confirm Password</label>
                 </div>
               </div>
@@ -108,7 +128,7 @@ export default function Signup() {
               <button
                 className="sign-button"
                 onClick={() => {
-                  signUpHandler();
+                  signUpFunction();
                 }}
               >
                 Sign Up
