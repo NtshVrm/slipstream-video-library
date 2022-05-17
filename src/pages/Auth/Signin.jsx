@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   faFacebook,
   faGoogle,
@@ -11,6 +12,8 @@ import { ComponentContext } from "../../context/component-context";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 export default function Signin() {
   const { sidebarDisplay, sidebar } = useContext(ComponentContext);
@@ -18,19 +21,61 @@ export default function Signin() {
     email: "",
     password: "",
   });
+  const userEmail = useRef("");
+  const userPassword = useRef("");
   const navigate = useNavigate();
 
-  const signInHandler = async () => {
+  const signInHandler = async (loginDetail) => {
     try {
-      const response = await axios.post(`/api/auth/login`, loginInfo);
+      const response = await axios.post(`/api/auth/login`, loginDetail);
       if (response.status === 200) {
-        navigate("/listing");
-        alert("Login Successfull");
+        localStorage.setItem(
+          "login",
+          JSON.stringify({ token: response.data.encodedToken })
+        );
+        navigate("/Listing");
+      }
+      if (response.status === 201) {
+        alert("Wrong Password");
       }
     } catch (error) {
       console.log(error);
+      alert("No User found with the entered email");
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      if (loginInfo.email && loginInfo.password !== "") {
+        signInHandler(loginInfo);
+      }
+    })();
+  }, [loginInfo]);
+
+  const testFunction = () => {
+    setLoginInfo((prev) => ({
+      ...prev,
+      email: "mock@gmail.com",
+      password: "mockPassword",
+    }));
+  };
+
+  const signInFunction = () => {
+    setLoginInfo((prev) => ({
+      ...prev,
+      email: userEmail.current.value,
+      password: userPassword.current.value,
+    }));
+  };
+
+  if (
+    localStorage.getItem("login") !== "{}" &&
+    localStorage.getItem("login") !== null
+  ) {
+    setTimeout(() => {
+      navigate("/Listing");
+    }, 100);
+  }
 
   return (
     <div className="page-container">
@@ -81,9 +126,10 @@ export default function Signin() {
                     type="text"
                     className="text-input"
                     placeholder="mock@gmail.com"
-                    onChange={(e) => {
-                      setLoginInfo({ ...loginInfo, email: e.target.value });
-                    }}
+                    // onChange={(e) => {
+                    //   setLoginInfo({ ...loginInfo, email: e.target.value });
+                    // }}
+                    ref={userEmail}
                   />
                   <label className="input-label">Email</label>
                 </div>
@@ -92,9 +138,10 @@ export default function Signin() {
                     type="password"
                     className="text-input"
                     placeholder="mockPassword"
-                    onChange={(e) => {
-                      setLoginInfo({ ...loginInfo, password: e.target.value });
-                    }}
+                    // onChange={(e) => {
+                    //   setLoginInfo({ ...loginInfo, password: e.target.value });
+                    // }}
+                    ref={userPassword}
                   />
                   <label className="input-label">Password</label>
                 </div>
@@ -110,8 +157,10 @@ export default function Signin() {
                 </Link>
               </div>
 
-              <button className="test-button">Use Test Credentials</button>
-              <button className="sign-button" onClick={() => signInHandler()}>
+              <button className="test-button" onClick={testFunction}>
+                Use Test Credentials
+              </button>
+              <button className="sign-button" onClick={signInFunction}>
                 Sign In
               </button>
 

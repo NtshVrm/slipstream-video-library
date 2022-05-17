@@ -23,12 +23,13 @@ export default function Signup() {
       const response = await axios.post(`/api/auth/signup`, info);
       localStorage.setItem("token", response.data.encodedToken);
 
-      if (response.status === 201) {
+      if (response.status === 201 || 200) {
         navigate("/signin");
         alert("Created User!, Please login");
       }
     } catch (error) {
       console.log(error);
+      alert("User already exists, please login!");
     }
   };
 
