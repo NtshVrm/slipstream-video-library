@@ -1,6 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router";
 import { ListingPage, Signin, Signup, SingleVideo } from "./pages";
+import Mockman from "mockman-js";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/SingleVideo" element={<SingleVideo />} />
         <Route path="/SignUp" element={<Signup />} />
         <Route path="/SignIn" element={<Signin />} />
+        <Route path="/mockman" element={<Mockman />} />
       </Routes>
     </div>
   );
