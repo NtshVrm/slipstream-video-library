@@ -1,12 +1,34 @@
 import { faClock, faPlayCircle } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisVertical, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function VideoCard({ video }) {
   const [videoMenuDisplay, setVideoMenuDisplay] = useState(false);
   const navigate = useNavigate();
+  const encodedToken = localStorage.getItem("token");
+  async function addToWatchLater(item) {
+    try {
+      const response = await axios.post(
+        `/api/user/watchlater`,
+        {
+          video: item,
+        },
+
+        {
+          headers: {
+            authorization: JSON.stringify(encodedToken),
+          },
+        }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="video-card">
       <div className="video-thumbnail">
@@ -34,13 +56,16 @@ export default function VideoCard({ video }) {
             />
             {videoMenuDisplay ? (
               <div className="video-menu">
-                <div className="video-menu-item">
+                <div
+                  className="video-menu-item"
+                  onClick={() => addToWatchLater(video)}
+                >
                   <FontAwesomeIcon icon={faClock} />
                   Watch Later
                 </div>
                 <div className="video-menu-item">
                   <FontAwesomeIcon icon={faPlayCircle} />
-                  Add to Playlist
+                  <div>Add to Playlist</div>
                 </div>
               </div>
             ) : (
