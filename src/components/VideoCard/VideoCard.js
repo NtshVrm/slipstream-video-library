@@ -4,11 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 export default function VideoCard({ video }) {
   const [videoMenuDisplay, setVideoMenuDisplay] = useState(false);
+  const [loginState, setLoginState] = useState(null);
   const navigate = useNavigate();
   const encodedToken = localStorage.getItem("token");
+
+  useEffect(() => {
+    setLoginState(localStorage.getItem("login") ? true : false);
+  });
+
   async function addToWatchLater(item) {
     try {
       const response = await axios.post(
@@ -58,7 +65,9 @@ export default function VideoCard({ video }) {
               <div className="video-menu">
                 <div
                   className="video-menu-item"
-                  onClick={() => addToWatchLater(video)}
+                  onClick={() => {
+                    loginState ? addToWatchLater(video) : navigate("/Signin");
+                  }}
                 >
                   <FontAwesomeIcon icon={faClock} />
                   Watch Later
