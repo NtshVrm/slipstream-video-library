@@ -7,13 +7,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useContext, useState, useEffect, useRef } from "react";
-import { NavBar } from "../../components";
-import { ComponentContext } from "../../context/component-context";
+import { NavBar, Sidebar } from "../../components";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../context/auth-context";
 
 export default function Signin() {
-  const { sidebarDisplay, sidebar } = useContext(ComponentContext);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -60,20 +58,7 @@ export default function Signin() {
     <div className="page-container">
       <NavBar />
       <main className="main-container">
-        <div
-          className={`sidebar-container ${
-            sidebarDisplay ? "sidebar-mobile" : ""
-          }`}
-        >
-          {sidebar.map((item) => {
-            return (
-              <div className="sidebar-item">
-                <FontAwesomeIcon className="sidebar-icon" icon={item.icon} />
-                {item.name}
-              </div>
-            );
-          })}
-        </div>
+        <Sidebar />
 
         <div className="listing-container">
           <div className="login-container">

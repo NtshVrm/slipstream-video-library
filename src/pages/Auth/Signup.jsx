@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import { NavBar } from "../../components";
-import { ComponentContext } from "../../context/component-context";
+import { NavBar, Sidebar } from "../../components";
+
 import "./auth.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../context/auth-context";
 
 export default function Signup() {
-  const { sidebarDisplay, sidebar } = useContext(ComponentContext);
   const [info, setInfo] = useState({
     firstName: "",
     lastName: "",
@@ -51,21 +50,7 @@ export default function Signup() {
     <div className="page-container">
       <NavBar />
       <main className="main-container">
-        <div
-          className={`sidebar-container ${
-            sidebarDisplay ? "sidebar-mobile" : ""
-          }`}
-        >
-          {sidebar.map((item) => {
-            return (
-              <div className="sidebar-item">
-                <FontAwesomeIcon className="sidebar-icon" icon={item.icon} />
-                {item.name}
-              </div>
-            );
-          })}
-        </div>
-
+        <Sidebar />
         <div className="listing-container">
           <div className="login-container">
             <div className="sign-in-container">

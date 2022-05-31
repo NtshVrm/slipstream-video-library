@@ -1,25 +1,34 @@
-import "./listing-page.css";
-import { NavBar, Sidebar, VideoCard } from "../../components";
-import { useContext } from "react";
-import { ComponentContext } from "../../context/component-context";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { NavBar, Sidebar, VideoCard } from "../../components";
+import { ComponentContext } from "../../context/component-context";
 
-export default function ListingPage() {
+export default function WatchLater() {
   const { filters } = useContext(ComponentContext);
-  const [videos, setVideos] = useState({});
+  const [watchlater, setWatchLater] = useState({});
+  const encodedToken = localStorage.getItem("token");
 
-  const videoFetch = async () => {
+  const watchLaterFetch = async () => {
     try {
-      const response = await axios.get(`/api/videos`);
-      setVideos(response.data.videos);
+      const response = await axios.get(
+        `/api/user/watchlater`,
+
+        {
+          headers: {
+            authorization: JSON.stringify(encodedToken),
+          },
+        }
+      );
+
+      setWatchLater(response.data.watchlater);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    videoFetch();
+    watchLaterFetch();
   }, []);
+
   return (
     <div className="page-container">
       <NavBar />
@@ -37,8 +46,8 @@ export default function ListingPage() {
             })}
           </div>
           <div className="video-listing">
-            {videos &&
-              Object.values(videos).map((item) => {
+            {watchlater &&
+              Object.values(watchlater).map((item) => {
                 return <VideoCard video={item} />;
               })}
           </div>

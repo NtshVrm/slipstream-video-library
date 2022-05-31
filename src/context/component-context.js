@@ -12,11 +12,11 @@ const ComponentContext = createContext();
 const ComponenentProvider = ({ children }) => {
   const [sidebarDisplay, setSidebarDisplay] = useState(true);
   const sidebar = [
-    { name: "Home", icon: faHome },
-    { name: "Playlists", icon: faPlayCircle },
-    { name: "Watch Later", icon: faClock },
-    { name: "Liked Videos", icon: faThumbsUp },
-    { name: "Watch History", icon: faHistory },
+    { name: "Home", icon: faHome, route: "/" },
+    { name: "Playlists", icon: faPlayCircle, route: "/Playlist" },
+    { name: "Watch Later", icon: faClock, route: "/Watchlater" },
+    { name: "Liked Videos", icon: faThumbsUp, route: "/Liked" },
+    { name: "Watch History", icon: faHistory, route: "/History" },
   ];
 
   const filters = [
